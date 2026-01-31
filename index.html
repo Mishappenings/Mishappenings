@@ -62,30 +62,31 @@
       overflow:hidden;
     }
 
-    /* === Background image === */
-.bg{
-  position:fixed;
-  inset:0;
-  z-index:-2;
-  pointer-events:none;
-  background-image:url("mishbackground.jpg");
-  background-size:cover;
-  background-position:center;
-  background-repeat:no-repeat;
-}
+    /* === Background (IMAGE + DARK OVERLAY) === */
+    .bg{
+      position:fixed;
+      inset:0;
+      z-index:-2;
+      pointer-events:none;
 
-/* dark overlay for contrast */
-.bg::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:linear-gradient(
-    to bottom,
-    rgba(0,0,0,.35),
-    rgba(0,0,0,.88)
-  );
-}
+      /* Layer order: overlay ON TOP of image */
+      background:
+        linear-gradient(to bottom, rgba(0,0,0,.35), rgba(0,0,0,.90)),
+        url("mishbackground.jpg");
 
+      background-size:cover;
+      background-position:center;
+      background-repeat:no-repeat;
+      background-color:#000;
+    }
+
+    /* Optional grain (kept, but subtle so it doesn't ruin the image) */
+    .bg__grain{
+      position:absolute;
+      inset:0;
+      opacity:.07;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.25'/%3E%3C/svg%3E");
+      mix-blend-mode:overlay;
     }
 
     /* === Top toolbar (distinct from your pill nav) === */
@@ -860,4 +861,3 @@
   </script>
 </body>
 </html>
-
